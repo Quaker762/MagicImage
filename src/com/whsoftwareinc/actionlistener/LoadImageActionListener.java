@@ -5,8 +5,8 @@
 /--**/
 package com.whsoftwareinc.actionlistener;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -17,7 +17,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 
 import com.whsoftwareinc.MagicImage;
-import com.whsoftwareinc.system.ImageLoader;
 import com.whsoftwareinc.ui.ImageFrame;
 
 public class LoadImageActionListener implements ActionListener {
@@ -25,11 +24,16 @@ public class LoadImageActionListener implements ActionListener {
 	private BufferedImage image;
 	private ImageFrame frame = MagicImage.frame;
 	private JLabel imglbl;
+	private Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	private double sWidth;
+	private double sHeight;
 	
 	public static String dir = "";
 	
 	public void actionPerformed(ActionEvent e) 
 	{
+		sWidth = screenSize.getWidth();
+		sHeight = screenSize.getHeight();
 		clearFrame();
 		load();
 	}
@@ -41,10 +45,25 @@ public class LoadImageActionListener implements ActionListener {
 		image = MagicImage.img.loadImage(loader.getSelectedFile());
 		imglbl = new JLabel(new ImageIcon(image));
 		frame.panel.add(imglbl);
-		frame.setSize(image.getWidth(), image.getHeight() + (frame.mbar.getHeight() * 2));
+		
+		//If the image width is greater than the 
+		if(image.getWidth() >= sWidth)
+		{
+			frame.setSize((int)sWidth, image.getHeight() + (frame.mbar.getHeight() * 2));
+		}
+		else if(image.getHeight() >= sHeight)
+		{
+			frame.setSize(image.getWidth(), (int)sHeight);
+		}
+		else
+		{
+			frame.setSize(image.getWidth(), image.getHeight() + (frame.mbar.getHeight() * 2));
+		}
 		System.out.println(image.getWidth() + ", " + image.getHeight());
 		dir = getDir(loader.getSelectedFile());
+		frame.isClear = false;
 		System.out.println(dir);
+		System.out.println("Loaded an Image!");
 	}
 	
 	private void clearFrame()

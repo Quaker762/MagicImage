@@ -17,8 +17,17 @@ public class ClearFrameActionListener implements ActionListener{
 	
 	public void actionPerformed(ActionEvent arg0) 
 	{
-		frame.panel.removeAll();
-		frame.panel.repaint();
-		frame.setSize(300, 300);
+		if(!frame.isClear)
+		{
+			frame.panel.removeAll();
+			frame.panel.repaint();
+			frame.setSize(300, 300);
+			frame.isClear = true;
+			System.out.println("Cleared the frame.");
+		}
+		else 
+		{
+			System.out.println("Frame is already clear...");
+		}
 	}
 }

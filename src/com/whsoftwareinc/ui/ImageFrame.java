@@ -18,10 +18,13 @@ public class ImageFrame extends JFrame {
 	private JMenuBar buttonbar;
 	private JMenu fmenuitem;
 	private JMenuItem clear;
+	private JMenuItem exit;
 	private JMenuItem loaditem;
 	private JMenuItem saveitem;
 	private JButton left;
 	private JButton right;
+	
+	public boolean isClear = true;
 	
 	public ImageFrame(int width, int height, String title)
 	{
@@ -32,6 +35,7 @@ public class ImageFrame extends JFrame {
 		loaditem = new JMenuItem("Load");
 		saveitem = new JMenuItem("Save");
 		clear = new JMenuItem("Clear");
+		exit = new JMenuItem("Exit");
 		
 		left = new JButton("<--");
 		right = new JButton("-->");
@@ -57,12 +61,14 @@ public class ImageFrame extends JFrame {
 		fmenuitem.add(loaditem);
 		fmenuitem.add(saveitem);
 		fmenuitem.add(clear);
+		fmenuitem.add(exit);
 		mbar.add(left);
 		mbar.add(right);
 		
 		loaditem.addActionListener(new LoadImageActionListener());
 		saveitem.addActionListener(new SaveImageActionListener());
 		clear.addActionListener(new ClearFrameActionListener());
+		exit.addActionListener(new ExitActionListener());
 		right.addActionListener(new ImageRightActionListener());
 	}
 }
