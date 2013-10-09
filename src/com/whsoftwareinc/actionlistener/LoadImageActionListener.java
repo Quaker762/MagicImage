@@ -45,7 +45,7 @@ public class LoadImageActionListener implements ActionListener {
 		image = MagicImage.img.loadImage(loader.getSelectedFile());
 		imglbl = new JLabel(new ImageIcon(image));
 		frame.panel.add(imglbl);
-		
+		frame.panel.repaint();
 		//If the image width is greater than the 
 		if(image.getWidth() >= sWidth)
 		{
@@ -62,6 +62,7 @@ public class LoadImageActionListener implements ActionListener {
 		System.out.println(image.getWidth() + ", " + image.getHeight());
 		dir = getDir(loader.getSelectedFile());
 		frame.isClear = false;
+		frame.panel.repaint();
 		System.out.println(dir);
 		System.out.println("Loaded an Image!");
 	}
